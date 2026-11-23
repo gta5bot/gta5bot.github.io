@@ -8,25 +8,26 @@
     <meta property="og:title" content="Stake Drop — автоматизація без зайвого шуму" />
     <meta property="og:description" content="Один спокійний інструмент для рутинних дій у GTA 5 RP." />
     <link rel="icon" href="./logo1.ico" />
-    <link rel="stylesheet" href="./styles.css?v=2026-11-21-tilda" />
+    <link rel="stylesheet" href="./styles.css?v=2026-11-23-2" />
     <title>Stake Drop — GTA 5 RP</title>
   </head>
   <body>
-    <header class="site-header">
-      <div class="header-inner shell">
-        <a class="brand" href="#top" aria-label="Stake Drop — на головну">
-          <span class="brand-mark"><img src="./logo1.ico" alt="" /></span>
-          <span class="brand-name">stake<span>drop</span></span>
-        </a>
-        <nav class="site-nav" aria-label="Головна навігація">
-          <a href="#product">Продукт</a>
-          <a href="#features">Можливості</a>
-          <a href="#download">Завантаження</a>
-        </nav>
-        <button class="header-cta" type="button" data-download-button>Завантажити</button>
-        <button class="menu-button" type="button" aria-label="Відкрити меню" aria-expanded="false" data-menu-button>
-          <span></span><span></span>
-        </button>
+    <header class="site-header" data-header>
+      <div class="header-shell shell">
+        <div class="header-bar">
+          <a class="brand" href="#top" aria-label="Stake Drop — на головну">
+            <span class="brand-mark"><img src="./logo1.ico" alt="" /></span>
+            <span class="brand-name">stake<span>drop</span></span>
+          </a>
+          <nav class="site-nav" aria-label="Головна навігація">
+            <a href="#product">Продукт</a>
+            <a href="#features">Можливості</a>
+            <a href="#download">Завантаження</a>
+          </nav>
+          <button class="menu-button" type="button" aria-label="Відкрити меню" aria-expanded="false" data-menu-button>
+            <span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -64,9 +65,19 @@
           <div class="demo-glow" aria-hidden="true"></div>
           <div class="demo-window">
             <iframe
+              class="demo-inline"
               title="Інтерактивний перегляд інтерфейсу Stake Drop"
-              src="./app-demo/index.html?v=4.13.0-preview"
+              data-demo-inline
+              data-src="./app-demo/index.html?v=4.13.0-preview"
+              loading="lazy"
             ></iframe>
+            <button class="demo-open" type="button" data-demo-open aria-haspopup="dialog">
+              <span class="demo-open__play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.2v13.6L19.4 12z" fill="currentColor" /></svg>
+              </span>
+              <span class="demo-open__text">Відкрити демо</span>
+              <span class="demo-open__hint">Повний екран</span>
+            </button>
           </div>
         </div>
         <div class="demo-caption">
@@ -138,7 +149,22 @@
       </div>
     </footer>
 
+    <div class="demo-overlay" data-demo-overlay role="dialog" aria-modal="true" aria-label="Демо Stake Drop" hidden>
+      <div class="demo-overlay__stage" data-demo-stage>
+        <iframe class="demo-overlay__frame" title="Повноекранне демо Stake Drop" data-demo-full></iframe>
+      </div>
+      <div class="demo-overlay__controls">
+        <button class="overlay-btn" type="button" data-demo-close aria-label="Згорнути демо">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 9.5 12 15l6-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+        <button class="overlay-btn" type="button" data-demo-close aria-label="Закрити демо">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+        </button>
+      </div>
+      <p class="demo-overlay__hint">Поверни телефон горизонтально — буде зручніше</p>
+    </div>
+
     <div class="toast" role="status" aria-live="polite" data-toast>Посилання на завантаження буде додано пізніше.</div>
-    <script type="module" src="./app.js?v=2026-11-21-tilda"></script>
+    <script type="module" src="./app.js?v=2026-11-23-2"></script>
   </body>
 </html>
