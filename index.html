@@ -8,7 +8,7 @@
     <meta property="og:title" content="Stake Drop — автоматизація без зайвого шуму" />
     <meta property="og:description" content="Один спокійний інструмент для рутинних дій у GTA 5 RP." />
     <link rel="icon" href="./logo1.ico" />
-    <link rel="stylesheet" href="./styles.css?v=2026-11-23-2" />
+    <link rel="stylesheet" href="./styles.css?v=2026-11-25-3" />
     <title>Stake Drop — GTA 5 RP</title>
   </head>
   <body>
@@ -20,10 +20,11 @@
             <span class="brand-name">stake<span>drop</span></span>
           </a>
           <nav class="site-nav" aria-label="Головна навігація">
-            <a href="#product">Продукт</a>
-            <a href="#features">Можливості</a>
-            <a href="#download">Завантаження</a>
+            <a href="#product" data-nav-panel>Продукт</a>
+            <a href="#features" data-nav-panel>Можливості</a>
+            <a href="#download" data-nav-panel>Завантаження</a>
           </nav>
+          <span class="header-spacer" aria-hidden="true"></span>
           <button class="menu-button" type="button" aria-label="Відкрити меню" aria-expanded="false" data-menu-button>
             <span></span><span></span>
           </button>
@@ -54,88 +55,106 @@
         </div>
       </section>
 
-      <section class="section demo-section shell" id="product">
-        <div class="section-head">
-          <p class="eyebrow">Продукт у фокусі</p>
-          <h2>Спокійний інтерфейс.<br /><span>Видимий результат.</span></h2>
-          <p class="section-lead">Перемикай екрани й подивись, як Stake Drop виглядає в роботі.</p>
-        </div>
+      <div class="journey" data-journey>
+        <div class="journey__viewport">
+          <div class="journey__track" data-journey-track>
+            <section class="panel panel--demo" id="product" data-panel>
+              <div class="panel-inner shell">
+                <div class="section-head">
+                  <p class="eyebrow">Продукт у фокусі</p>
+                  <h2>Спокійний інтерфейс.<br /><span>Видимий результат.</span></h2>
+                  <p class="section-lead">Перемикай екрани й подивись, як Stake Drop виглядає в роботі.</p>
+                </div>
 
-        <div class="demo-frame">
-          <div class="demo-glow" aria-hidden="true"></div>
-          <div class="demo-window">
-            <iframe
-              class="demo-inline"
-              title="Інтерактивний перегляд інтерфейсу Stake Drop"
-              data-demo-inline
-              data-src="./app-demo/index.html?v=4.13.0-preview"
-              loading="lazy"
-            ></iframe>
-            <button class="demo-open" type="button" data-demo-open aria-haspopup="dialog">
-              <span class="demo-open__play" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.2v13.6L19.4 12z" fill="currentColor" /></svg>
-              </span>
-              <span class="demo-open__text">Відкрити демо</span>
-              <span class="demo-open__hint">Повний екран</span>
-            </button>
+                <div class="demo-stack">
+                  <div class="demo-frame">
+                    <div class="demo-glow" aria-hidden="true"></div>
+                    <div class="demo-window" data-demo-window>
+                      <div class="demo-stage" data-demo-stage-inline>
+                        <iframe
+                          class="demo-inline"
+                          title="Інтерактивний перегляд інтерфейсу Stake Drop"
+                          data-demo-inline
+                          data-src="./app-demo/index.html?v=4.13.0-preview"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                      <button class="demo-open" type="button" data-demo-open aria-haspopup="dialog">
+                        <span class="demo-open__play" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.2v13.6L19.4 12z" fill="currentColor" /></svg>
+                        </span>
+                        <span class="demo-open__text">Відкрити демо</span>
+                        <span class="demo-open__hint">Повний екран</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="demo-caption">
+                    <span>Інтерфейс Stake Drop — точний макет на основі коду додатка</span>
+                    <span>Перемикай модулі <b>↗</b></span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel panel--features" id="features" data-panel>
+              <div class="panel-inner shell">
+                <div class="features-head">
+                  <div>
+                    <p class="eyebrow">Без зайвого</p>
+                    <h2>Інструменти,<br /><span>які не заважають.</span></h2>
+                  </div>
+                  <p class="section-lead">Три речі, які роблять рутину тихішою: розпізнавання, оверлей і журнали.</p>
+                </div>
+
+                <div class="feature-grid">
+                  <article class="feature-card feature-card--accent">
+                    <div class="feature-top">
+                      <span class="feature-number">01</span>
+                      <span class="feature-symbol">✦</span>
+                    </div>
+                    <h3>Розумне розпізнавання</h3>
+                    <p>Stake Drop бачить потрібні об’єкти на екрані, а не залежить від записаних координат.</p>
+                  </article>
+                  <article class="feature-card">
+                    <div class="feature-top">
+                      <span class="feature-number">02</span>
+                      <span class="feature-symbol">◌</span>
+                    </div>
+                    <h3>Оверлей у потрібному місці</h3>
+                    <p>Стан бота, цикли й дії завжди перед очима — з налаштуванням кольору та розміру.</p>
+                  </article>
+                  <article class="feature-card">
+                    <div class="feature-top">
+                      <span class="feature-number">03</span>
+                      <span class="feature-symbol">≡</span>
+                    </div>
+                    <h3>Детальні журнали</h3>
+                    <p>Один щоденний файл із подіями, фокусом, захопленням екрана та діагностикою.</p>
+                  </article>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel panel--cta cta" id="download" data-panel>
+              <div class="cta-grid" aria-hidden="true"></div>
+              <div class="cta-glow" aria-hidden="true"></div>
+              <div class="panel-inner cta-inner">
+                <p class="eyebrow">Готовий спробувати?</p>
+                <h2>Менше рутини.<br /><em>Більше гри.</em></h2>
+                <p class="section-lead">Один спокійний інструмент для повторюваних дій — без зайвих налаштувань і шуму.</p>
+                <button class="button button--primary" type="button" data-download-button>
+                  <span>Завантажити Stake Drop</span><span class="button-arrow">↗</span>
+                </button>
+                <p class="download-warning">Stake Drop створений для автоматизації повторюваних дій у грі. Використовуй програму відповідально та самостійно перевіряй правила свого сервера.</p>
+              </div>
+            </section>
+          </div>
+
+          <div class="journey__dots" aria-hidden="true" data-journey-dots>
+            <span></span><span></span><span></span>
           </div>
         </div>
-        <div class="demo-caption">
-          <span>Інтерфейс Stake Drop — точний макет на основі коду додатка</span>
-          <span>Перемикай модулі <b>↗</b></span>
-        </div>
-      </section>
-
-      <section class="section features-section shell" id="features">
-        <div class="features-head">
-          <div>
-            <p class="eyebrow">Без зайвого</p>
-            <h2>Інструменти,<br /><span>які не заважають.</span></h2>
-          </div>
-          <p class="section-lead">Три речі, які роблять рутину тихішою: розпізнавання, оверлей і журнали.</p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card feature-card--accent">
-            <div class="feature-top">
-              <span class="feature-number">01</span>
-              <span class="feature-symbol">✦</span>
-            </div>
-            <h3>Розумне розпізнавання</h3>
-            <p>Stake Drop бачить потрібні об’єкти на екрані, а не залежить від записаних координат.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-top">
-              <span class="feature-number">02</span>
-              <span class="feature-symbol">◌</span>
-            </div>
-            <h3>Оверлей у потрібному місці</h3>
-            <p>Стан бота, цикли й дії завжди перед очима — з налаштуванням кольору та розміру.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-top">
-              <span class="feature-number">03</span>
-              <span class="feature-symbol">≡</span>
-            </div>
-            <h3>Детальні журнали</h3>
-            <p>Один щоденний файл із подіями, фокусом, захопленням екрана та діагностикою.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="cta" id="download">
-        <div class="cta-grid" aria-hidden="true"></div>
-        <div class="cta-glow" aria-hidden="true"></div>
-        <div class="cta-inner shell">
-          <p class="eyebrow">Готовий спробувати?</p>
-          <h2>Менше рутини.<br /><em>Більше гри.</em></h2>
-          <p class="section-lead">Один спокійний інструмент для повторюваних дій — без зайвих налаштувань і шуму.</p>
-          <button class="button button--primary" type="button" data-download-button>
-            <span>Завантажити Stake Drop</span><span class="button-arrow">↗</span>
-          </button>
-          <p class="download-warning">Stake Drop створений для автоматизації повторюваних дій у грі. Використовуй програму відповідально та самостійно перевіряй правила свого сервера.</p>
-        </div>
-      </section>
+      </div>
     </main>
 
     <footer class="site-footer">
@@ -165,6 +184,6 @@
     </div>
 
     <div class="toast" role="status" aria-live="polite" data-toast>Посилання на завантаження буде додано пізніше.</div>
-    <script type="module" src="./app.js?v=2026-11-23-2"></script>
+    <script type="module" src="./app.js?v=2026-11-25-3"></script>
   </body>
 </html>
