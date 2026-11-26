@@ -96,16 +96,15 @@ function renderJourney() {
   const raw = (window.scrollY - journeyTop) / journeyRange;
   const clamped = Math.min(Math.max(raw, 0), 1);
   const position = clamped * segments;
-  const index = Math.min(Math.floor(position), segments - 1);
-  const progress = position - index;
-  const x = (index + easeInOut(progress)) * window.innerWidth;
-  journeyTrack.style.transform = `translate3d(${-x.toFixed(2)}px, 0, 0)`;
+  journeyTrack.style.transform = `translate3d(${(-position * window.innerWidth).toFixed(2)}px, 0, 0)`;
   const active = raw > -0.02 && raw < 1.02 ? Math.round(position) : -1;
   setActivePanel(active);
 }
 
 const rootEl = document.documentElement;
-let scrollTimer = 0;
+let scrollAnim = 0;
+let scrollFallback = 0;
+let snapTimer = 0;
 let savedScrollBehavior = null;
 
 function lockScrollBehavior() {
@@ -126,29 +125,52 @@ function jumpTo(targetY) {
   unlockScrollBehavior();
 }
 
-function animateScrollTo(targetY, duration = 560) {
-  clearTimeout(scrollTimer);
+function cancelScrollAnimation() {
+  clearTimeout(snapTimer);
+  clearTimeout(scrollFallback);
+  if (!scrollAnim) return;
+  cancelAnimationFrame(scrollAnim);
+  scrollAnim = 0;
+  unlockScrollBehavior();
+  snapLockUntil = performance.now() + 240;
+}
+
+function animateScrollTo(targetY, duration = 620) {
+  cancelAnimationFrame(scrollAnim);
+  clearTimeout(scrollFallback);
+  clearTimeout(snapTimer);
   const startY = window.scrollY;
   const distance = targetY - startY;
   if (Math.abs(distance) < 2) return;
   const start = performance.now();
   lockScrollBehavior();
+  snapLockUntil = performance.now() + duration + 220;
 
-  const step = () => {
-    const t = Math.min((performance.now() - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - t, 3);
-    window.scrollTo(0, startY + distance * eased);
+  let lastTick = 0;
+
+  const step = (now) => {
+    lastTick = now;
+    const t = Math.min((now - start) / duration, 1);
+    window.scrollTo(0, startY + distance * easeInOut(t));
     renderJourney();
     if (t < 1) {
-      scrollTimer = setTimeout(step, 16);
+      scrollAnim = requestAnimationFrame(step);
+      clearTimeout(scrollFallback);
+      scrollFallback = setTimeout(() => {
+        if (lastTick === now) {
+          cancelAnimationFrame(scrollAnim);
+          step(performance.now());
+        }
+      }, 48);
     } else {
+      scrollAnim = 0;
       unlockScrollBehavior();
     }
   };
-  step();
+  step(start);
 }
 
-function snapJourney(y) {
+function snapJourney(y, direction) {
   if (!journeyMedia.matches || !journey) return;
   const now = performance.now();
   if (now < snapLockUntil) return;
@@ -159,40 +181,54 @@ function snapJourney(y) {
   const position = raw * segments;
   const index = Math.floor(position);
   const progress = position - index;
-  const goingDown = y > previousY;
 
-  let target = -1;
-  if (goingDown && progress >= 0.7) target = index + 1;
-  else if (!goingDown && progress <= 0.3) target = index;
+  let target;
+  if (direction > 0) target = progress >= 0.7 ? index + 1 : index;
+  else if (direction < 0) target = progress <= 0.3 ? index : index + 1;
+  else target = Math.round(position);
   if (target < 0 || target > segments) return;
 
-  snapLockUntil = now + 700;
-  animateScrollTo(journeyTop + (target / segments) * journeyRange, 560);
+  animateScrollTo(journeyTop + (target / segments) * journeyRange, 640);
 }
 
 function scrollToPanel(id, smooth = true) {
   const index = panels.findIndex((panel) => panel.id === id);
   if (index < 0 || !journeyMedia.matches) return false;
   const targetY = journeyTop + (index / (panels.length - 1)) * journeyRange;
-  snapLockUntil = performance.now() + 900;
-  navScrollUntil = performance.now() + 1000;
-  if (smooth) animateScrollTo(targetY, 640);
+  cancelScrollAnimation();
+  snapLockUntil = performance.now() + 1000;
+  navScrollUntil = performance.now() + 1100;
+  if (smooth) animateScrollTo(targetY, 680);
   else jumpTo(targetY);
   return true;
 }
 
+let lastScrollDirection = 0;
+
 function onScroll() {
   const y = window.scrollY;
+  const delta = y - previousY;
+  if (delta !== 0) lastScrollDirection = delta > 0 ? 1 : -1;
   syncHeader(y);
   renderJourney();
-  snapJourney(y);
   previousY = y;
+
+  clearTimeout(snapTimer);
+  snapTimer = setTimeout(() => snapJourney(window.scrollY, lastScrollDirection), 150);
 }
 
 measureJourney();
 renderJourney();
 syncHeader(window.scrollY);
 window.addEventListener("scroll", onScroll, { passive: true });
+["wheel", "touchstart"].forEach((type) => {
+  window.addEventListener(type, cancelScrollAnimation, { passive: true });
+});
+window.addEventListener("keydown", (event) => {
+  if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
+    cancelScrollAnimation();
+  }
+});
 window.addEventListener("resize", () => {
   measureJourney();
   renderJourney();
@@ -222,7 +258,7 @@ if (location.hash) {
 }
 
 /* Demo: inline iframe on desktop, fullscreen overlay on touch devices */
-const DEMO_URL = "./app-demo/index.html?v=4.13.0-preview";
+const DEMO_URL = "./app-demo/index.html?v=4.13.0-theme2";
 const DEMO_STAGE_WIDTH = 1280;
 const DEMO_STAGE_HEIGHT = 800;
 const inlineDemo = document.querySelector("[data-demo-inline]");
@@ -237,10 +273,76 @@ const desktopQuery = window.matchMedia("(min-width: 861px)");
 let lastFocused = null;
 let closeTimer;
 
+/* Demo theme: dark / light / glass, applied to the demo iframes */
+const THEME_KEY = "stake-drop-demo-theme";
+const THEMES = ["dark", "light", "glass"];
+const themeButtons = Array.from(document.querySelectorAll("[data-theme-set]"));
+let demoTheme = "dark";
+
+try {
+  const storedTheme = localStorage.getItem(THEME_KEY);
+  if (THEMES.includes(storedTheme)) demoTheme = storedTheme;
+} catch (error) {}
+
+function applyThemeToDoc(doc) {
+  if (!doc) return;
+  const docRoot = doc.documentElement;
+  docRoot.classList.toggle("light", demoTheme === "light");
+  docRoot.classList.toggle("glass-mode", demoTheme === "glass");
+  docRoot.style.colorScheme = demoTheme === "light" ? "light" : "dark";
+}
+
+function applyThemeToFrames() {
+  [inlineDemo, fullDemo].forEach((frame) => {
+    try {
+      const doc = frame?.contentDocument;
+      if (!doc) return;
+      applyThemeToDoc(doc);
+      frame.contentWindow?.postMessage({ type: "stake-drop-theme", theme: demoTheme }, "*");
+    } catch (error) {}
+  });
+}
+
+function renderThemeButtons() {
+  themeButtons.forEach((button) => {
+    const active = button.dataset.themeSet === demoTheme;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function setDemoTheme(next, { persist = true } = {}) {
+  if (!THEMES.includes(next)) return;
+  demoTheme = next;
+  if (persist) {
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch (error) {}
+  }
+  renderThemeButtons();
+  applyThemeToFrames();
+}
+
+themeButtons.forEach((button) => {
+  button.addEventListener("click", () => setDemoTheme(button.dataset.themeSet));
+});
+
+inlineDemo?.addEventListener("load", applyThemeToFrames);
+fullDemo?.addEventListener("load", applyThemeToFrames);
+
+window.addEventListener("storage", (event) => {
+  if (event.key === THEME_KEY && THEMES.includes(event.newValue)) {
+    setDemoTheme(event.newValue, { persist: false });
+  }
+});
+
+renderThemeButtons();
+
 function loadInlineDemo() {
   if (!desktopQuery.matches || !inlineDemo) return;
   if (!inlineDemo.getAttribute("src")) {
-    inlineDemo.setAttribute("src", inlineDemo.dataset.src || DEMO_URL);
+    const src = inlineDemo.dataset.src || DEMO_URL;
+    inlineDemo.setAttribute("src", `${src}&theme=${demoTheme}`);
   }
 }
 
@@ -274,7 +376,7 @@ function openDemo() {
   clearTimeout(closeTimer);
 
   if (fullDemo && !fullDemo.getAttribute("src")) {
-    fullDemo.setAttribute("src", DEMO_URL);
+    fullDemo.setAttribute("src", `${DEMO_URL}&theme=${demoTheme}`);
   }
 
   demoOverlay.hidden = false;

@@ -1,0 +1,31 @@
+/* Demo-only theme layer.
+   Light mode reuses the app's built-in `.light` tokens.
+   Glass mode makes the surfaces translucent over a vivid aurora backdrop. */
+
+html { color-scheme: dark; }
+html.light { color-scheme: light; }
+
+html.glass-mode {
+  --app-bg: #06080f;
+  --app-surface: rgba(12, 16, 28, 0.32);
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-strong: rgba(255, 255, 255, 0.17);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --hairline: rgba(255, 255, 255, 0.13);
+  --track: rgba(255, 255, 255, 0.18);
+  --shadow-panel-token: 0 1px 0 0 rgba(255, 255, 255, 0.18) inset, 0 28px 70px -32px rgba(0, 0, 0, 0.9);
+  --shadow-raised-token: 0 14px 34px -18px rgba(0, 0, 0, 0.9);
+}
+
+html.glass-mode .app-backdrop {
+  background:
+    radial-gradient(900px 560px at 8% -12%, rgba(255, 79, 150, 0.5), transparent 62%),
+    radial-gradient(820px 620px at 94% 4%, rgba(124, 92, 255, 0.52), transparent 64%),
+    radial-gradient(1100px 720px at 50% 118%, rgba(56, 102, 149, 0.52), transparent 68%),
+    linear-gradient(165deg, #0a1020 0%, #070a12 55%, #0c0a18 100%);
+}
+
+html.glass-mode .glass-panel {
+  backdrop-filter: blur(26px) saturate(1.5);
+  -webkit-backdrop-filter: blur(26px) saturate(1.5);
+}
