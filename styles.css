@@ -923,6 +923,12 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   .header-bar { display: flex; align-items: center; height: 58px; padding: 0 8px 0 16px; gap: 0; }
   .header-cta { height: 38px; padding: 0 14px; font-size: 12px; }
   .header-actions { margin-left: auto; gap: 8px; }
+  .theme-toggle {
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+  }
   .site-nav,
   .site-nav.is-open,
   .menu-button { display: none; }
