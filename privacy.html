@@ -3,26 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Політика конфіденційності Stake Drop — які дані обробляються і для чого." />
+  <meta name="description" content="Коротка політика конфіденційності Stake Drop." />
   <title>Політика конфіденційності — Stake Drop</title>
   <link rel="icon" href="./logo1.ico" />
-  <link rel="stylesheet" href="./styles.css?v=2026-11-27-6" />
+  <link rel="stylesheet" href="./styles.css?v=2026-11-27-7" />
   <style>
-    .policy-page { padding: 64px 0 96px; }
+    .policy-page { padding: 56px 0 88px; }
     .policy-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      margin-bottom: 72px;
+      margin-bottom: 56px;
     }
-    .policy-back {
-      color: var(--muted);
-      font-size: 13px;
-      transition: color 0.2s ease;
-    }
+    .policy-back { color: var(--muted); font-size: 13px; transition: color 0.2s ease; }
     .policy-back:hover { color: var(--text); }
-    .policy-head { max-width: 760px; }
+
+    .policy-head { max-width: 720px; margin-inline: auto; }
     .policy-eyebrow {
       color: var(--peach);
       font-size: 11px;
@@ -31,10 +28,10 @@
       text-transform: uppercase;
     }
     .policy-head h1 {
-      margin: 14px 0 20px;
-      font-size: clamp(40px, 6vw, 72px);
+      margin: 12px 0 18px;
+      font-size: clamp(38px, 5vw, 64px);
       font-weight: 800;
-      line-height: 1.02;
+      line-height: 1.05;
       letter-spacing: -0.04em;
     }
     .policy-head h1 em {
@@ -44,55 +41,43 @@
       -webkit-background-clip: text;
       background-clip: text;
     }
-    .policy-lead {
-      max-width: 640px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.65;
-    }
+    .policy-lead { color: var(--muted); font-size: 16px; line-height: 1.7; }
     .policy-date {
-      margin-top: 22px;
+      margin-top: 18px;
       color: var(--subtle);
       font-size: 12px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .policy-list { display: grid; gap: 16px; margin-top: 56px; }
-    .policy-card {
-      padding: 28px 32px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.025);
-    }
-    .policy-card h2 {
+
+    .policy-body { max-width: 720px; margin: 44px auto 0; }
+    .policy-section { padding: 24px 0; border-top: 1px solid var(--line); }
+    .policy-section h2 {
       display: flex;
       align-items: baseline;
       gap: 12px;
-      margin-bottom: 12px;
-      font-size: 18px;
+      margin-bottom: 10px;
+      font-size: 19px;
       font-weight: 700;
     }
-    .policy-card h2 span { color: var(--peach); font-size: 13px; font-variant-numeric: tabular-nums; }
-    .policy-card p {
-      color: var(--muted);
-      font-size: 14.5px;
-      line-height: 1.75;
+    .policy-section h2 span { color: var(--peach); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .policy-section p,
+    .policy-section li {
+      color: rgba(245, 245, 245, 0.78);
+      font-size: 16px;
+      line-height: 1.8;
     }
-    .policy-card ul {
-      margin: 10px 0 0 20px;
-      color: var(--muted);
-      font-size: 14.5px;
-      line-height: 1.75;
-    }
-    .policy-card li + li { margin-top: 6px; }
-    .policy-card a { color: var(--peach); text-decoration: underline; text-underline-offset: 3px; }
+    .policy-section ul { margin-left: 20px; }
+    .policy-section li + li { margin-top: 4px; }
+    .policy-section a { color: var(--peach); text-decoration: underline; text-underline-offset: 3px; }
+    .policy-note { margin-top: 8px; color: var(--subtle); font-size: 13px; }
+
     @media (max-width: 700px) {
-      .policy-page { padding: 44px 0 72px; }
-      .policy-top { margin-bottom: 52px; }
-      .policy-head h1 { font-size: 42px; }
-      .policy-lead { font-size: 15px; }
-      .policy-list { margin-top: 40px; }
-      .policy-card { padding: 22px 20px; border-radius: 14px; }
+      .policy-page { padding: 40px 0 64px; }
+      .policy-top { margin-bottom: 40px; }
+      .policy-head h1 { font-size: 40px; }
+      .policy-body { margin-top: 32px; }
+      .policy-section { padding: 20px 0; }
     }
   </style>
 </head>
@@ -109,96 +94,44 @@
     <header class="policy-head">
       <p class="policy-eyebrow">Документ</p>
       <h1>Політика<br /><em>конфіденційності</em></h1>
-      <p class="policy-lead">
-        Ця політика пояснює, які дані можуть оброблятися під час відвідування сайту та використання демо-інтерфейсу Stake Drop,
-        навіщо вони потрібні та які можливості є у вас для їх контролю.
-      </p>
-      <p class="policy-date">Останнє оновлення: 27 листопада 2026 р.</p>
+      <p class="policy-lead">Коротко про те, які дані ми отримуємо, навіщо вони потрібні та які є варіанти контролю.</p>
+      <p class="policy-date">Оновлено: 27 листопада 2026 р.</p>
     </header>
 
-    <div class="policy-list">
-      <section class="policy-card">
-        <h2><span>01</span> Загальні положення</h2>
-        <p>
-          Політика стосується сайту Stake Drop і демо-інтерфейсу, який на ньому показано. Вона не поширюється на сайти та сервіси
-          третіх осіб, до яких ви можете перейти з цієї сторінки. Ми дотримуємося принципу мінімізації даних і не запитуємо інформацію,
-          без якої сервіс не може працювати.
-        </p>
+    <div class="policy-body">
+      <section class="policy-section">
+        <h2><span>01</span> Загальне</h2>
+        <p>Політика стосується сайту та демо Stake Drop. Ми не запитуємо дані, без яких сервіс не працює.</p>
       </section>
 
-      <section class="policy-card">
-        <h2><span>02</span> Дані, які ми можемо отримувати</h2>
+      <section class="policy-section">
+        <h2><span>02</span> Що ми отримуємо</h2>
         <ul>
-          <li>Інформація, яку ви надаєте самостійно, наприклад, у зверненні або під час спілкування з нами.</li>
-          <li>Стандартні технічні дані запиту: IP-адреса, тип браузера, версія операційної системи, мова та відвідані сторінки.</li>
-          <li>Налаштування інтерфейсу, зокрема обрана тема, які зберігаються локально у вашому браузері.</li>
+          <li>Стандартні технічні дані запиту: IP, браузер, відвідані сторінки.</li>
+          <li>Налаштування, які ви обираєте в демо, наприклад тему.</li>
+          <li>Інформацію, яку ви надсилаєте самостійно.</li>
         </ul>
       </section>
 
-      <section class="policy-card">
-        <h2><span>03</span> Мета обробки</h2>
-        <p>
-          Дані використовуються для коректної роботи сайту й демо, збереження ваших налаштувань, відповіді на звернення,
-          а також для підтримки безпеки та стабільності сервісу. Ми не використовуємо їх для цілей, не описаних у цій політиці.
-        </p>
+      <section class="policy-section">
+        <h2><span>03</span> Для чого</h2>
+        <p>Щоб сайт і демо працювали, зберігати ваші налаштування, відповідати на звернення та підтримувати безпеку.</p>
       </section>
 
-      <section class="policy-card">
-        <h2><span>04</span> Cookies і локальне сховище</h2>
-        <p>
-          Сайт може зберігати невеликі обсяги інформації в локальному сховищі браузера (localStorage), наприклад вибір теми.
-          Ці дані залишаються на вашому пристрої, і ви можете видалити їх через налаштування браузера. Ми не використовуємо
-          сторонні рекламні cookies.
-        </p>
+      <section class="policy-section">
+        <h2><span>04</span> Cookies і сервіси</h2>
+        <p>Обрану тему зберігаємо у локальному сховищі браузера — його можна очистити в налаштуваннях. Рекламні cookies не використовуємо. Шрифти завантажуються з Google Fonts.</p>
       </section>
 
-      <section class="policy-card">
-        <h2><span>05</span> Сторонні ресурси</h2>
-        <p>
-          Для відображення шрифтів сайт підключає Google Fonts. Під час завантаження цих ресурсів браузер надсилає стандартні
-          технічні дані провайдеру згідно з його власною політикою. Ми не контролюємо обробку даних цим сервісом.
-        </p>
+      <section class="policy-section">
+        <h2><span>05</span> Передача даних</h2>
+        <p>Ми не продаємо дані й не передаємо їх третім особам із комерційною метою. Доступ можливий лише за законом або для роботи сайту.</p>
       </section>
 
-      <section class="policy-card">
-        <h2><span>06</span> Передача даних</h2>
-        <p>
-          Ми не продаємо персональні дані й не передаємо їх третім особам із комерційною метою. Доступ може бути надано лише
-          у випадках, передбачених законодавством, або технічним постачальникам у межах, необхідних для функціонування сайту.
-        </p>
-      </section>
-
-      <section class="policy-card">
-        <h2><span>07</span> Зберігання та захист</h2>
-        <p>
-          Інформація зберігається лише стільки, скільки вона потрібна для цілей, зазначених вище, або скільки вимагає закон.
-          Для захисту застосовуються загальноприйняті технічні та організаційні заходи. Водночас жоден спосіб передачі
-          через інтернет не є абсолютно безпечним.
-        </p>
-      </section>
-
-      <section class="policy-card">
-        <h2><span>08</span> Ваші права</h2>
-        <p>
-          Ви можете запросити інформацію про те, які дані про вас зберігаються, попросити виправити або видалити їх,
-          а також відмовитися від подальшого використання сервісу. Для цього скористайтеся контактними каналами,
-          зазначеними на головній сторінці проєкту.
-        </p>
-      </section>
-
-      <section class="policy-card">
-        <h2><span>09</span> Зміни політики</h2>
-        <p>
-          Ми можемо оновлювати цю політику. Актуальна версія завжди доступна на цій сторінці зі зазначеною датою оновлення.
-        </p>
-      </section>
-
-      <section class="policy-card">
-        <h2><span>10</span> Контакти</h2>
-        <p>
-          З питань конфіденційності пишіть через контакти, вказані на головній сторінці Stake Drop —
-          <a href="./index.html">перейти на головну</a>.
-        </p>
+      <section class="policy-section">
+        <h2><span>06</span> Ваші права</h2>
+        <p>Ви можете попросити інформацію про свої дані, виправити або видалити їх. Контакти — на головній сторінці: <a href="./index.html">перейти</a>.</p>
+        <p class="policy-note">Оновлення політики публікуються тут із новою датою.</p>
       </section>
     </div>
   </main>
