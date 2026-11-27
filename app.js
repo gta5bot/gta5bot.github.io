@@ -111,7 +111,7 @@ function measureFeatureReveals() {
     const reveal = card.querySelector(".feature-reveal");
     const text = reveal?.querySelector("p");
     if (!reveal || !text) return;
-    const height = Math.ceil(text.getBoundingClientRect().height + parseFloat(getComputedStyle(text).marginTop));
+    const height = Math.ceil(text.getBoundingClientRect().height + parseFloat(getComputedStyle(text).marginTop) + 16);
     reveal.style.setProperty("--reveal-height", `${height}px`);
 
     if (!card.dataset.revealBound) {
