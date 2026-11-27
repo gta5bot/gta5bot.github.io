@@ -37,6 +37,8 @@ function syncHeader(y) {
     journeyMedia.matches && y >= journeyTop - 2 && y <= journeyTop + journeyRange + 2;
   const forceVisible = inJourney || performance.now() < navScrollUntil;
 
+  header?.classList.toggle("has-scrolled", y > 90);
+
   if (y < 90 || forceVisible) {
     scrollIntent = 0;
     header?.classList.remove("is-hidden");
@@ -290,11 +292,12 @@ let closeTimer;
 const THEME_KEY = "stake-drop-demo-theme";
 const THEMES = ["dark", "light", "glass"];
 const themeButtons = Array.from(document.querySelectorAll("[data-theme-set]"));
-let demoTheme = "dark";
+let demoTheme = document.documentElement.classList.contains("light") ? "light" : "dark";
 
+/* The demo follows the site theme on load; a saved glass preview stays as-is. */
 try {
   const storedTheme = localStorage.getItem(THEME_KEY);
-  if (THEMES.includes(storedTheme)) demoTheme = storedTheme;
+  if (storedTheme === "glass") demoTheme = "glass";
 } catch (error) {}
 
 function applyThemeToDoc(doc) {
@@ -354,6 +357,12 @@ window.addEventListener("message", (event) => {
   const data = event.data;
   if (!data || data.type !== "stake-drop-theme-changed" || !THEMES.includes(data.theme)) return;
   if (data.theme !== demoTheme) setDemoTheme(data.theme);
+});
+
+/* Site theme -> demo: the app preview follows the site's light/dark switch */
+window.addEventListener("stake-drop-site-theme-change", (event) => {
+  const theme = event.detail === "light" ? "light" : "dark";
+  if (theme !== demoTheme) setDemoTheme(theme);
 });
 
 /* Wheel forwarded from the inline demo: the page keeps scrolling under the cursor */
