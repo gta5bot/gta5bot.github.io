@@ -105,6 +105,18 @@ function renderJourney() {
   setActivePanel(active);
 }
 
+/* Exact reveal height keeps the card animation smooth (no dead/max-height jump) */
+function measureFeatureReveals() {
+  document.querySelectorAll(".feature-card").forEach((card) => {
+    const reveal = card.querySelector(".feature-reveal");
+    const text = reveal?.querySelector("p");
+    if (!reveal || !text) return;
+    const height = Math.ceil(text.getBoundingClientRect().height + parseFloat(getComputedStyle(text).marginTop));
+    reveal.style.setProperty("--reveal-height", `${height}px`);
+  });
+}
+measureFeatureReveals();
+
 const rootEl = document.documentElement;
 let scrollAnim = 0;
 let scrollFallback = 0;
@@ -248,10 +260,12 @@ window.addEventListener("keydown", (event) => {
 });
 window.addEventListener("resize", () => {
   measureJourney();
+  measureFeatureReveals();
   renderJourney();
 });
 window.addEventListener("load", () => {
   measureJourney();
+  measureFeatureReveals();
   renderJourney();
 });
 journeyMedia.addEventListener?.("change", () => {

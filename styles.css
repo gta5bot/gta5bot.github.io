@@ -658,7 +658,7 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   border-radius: 14px;
   background: var(--card-bg);
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 .feature-card::before {
   content: "";
@@ -675,7 +675,6 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .feature-card:hover,
 .feature-card:focus-visible,
 .feature-card:focus-within {
-  transform: translateY(-3px);
   border-color: var(--line-strong);
   box-shadow: 0 18px 40px -22px rgba(255, 100, 159, 0.5);
 }
@@ -685,9 +684,7 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .feature-card--accent { border-color: rgba(255, 100, 159, 0.24); background: var(--card-accent-bg); }
 .feature-top { display: flex; align-items: center; justify-content: space-between; }
 .feature-number { color: var(--subtle); font-size: 12px; letter-spacing: 0.14em; transition: color 0.35s ease; }
-.feature-symbol { color: var(--peach); font-size: 22px; line-height: 1; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-.feature-card:hover .feature-symbol,
-.feature-card:focus-within .feature-symbol { transform: rotate(12deg) scale(1.1); }
+.feature-symbol { color: var(--peach); font-size: 22px; line-height: 1; }
 .feature-card h3 {
   margin: 16px 0 0;
   font-size: 20px;
@@ -698,14 +695,12 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .feature-reveal {
   max-height: 0;
   overflow: hidden;
-  transform: translateY(-6px);
-  transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .feature-card:hover .feature-reveal,
 .feature-card:focus-visible .feature-reveal,
 .feature-card:focus-within .feature-reveal {
-  max-height: 90px;
-  transform: none;
+  max-height: var(--reveal-height, 80px);
 }
 .feature-card p {
   margin: 12px 0 0;
