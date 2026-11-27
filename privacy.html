@@ -111,10 +111,10 @@
               <span class="theme-toggle__thumb"></span>
             </span>
           </button>
-          <button class="header-cta" type="button" data-download-button>
-            <span>Завантажити</span>
-            <span class="header-cta__arrow" aria-hidden="true">↗</span>
-          </button>
+          <a class="header-cta" href="./index.html">
+            <span aria-hidden="true">←</span>
+            <span>Назад</span>
+          </a>
         </div>
       </div>
     </div>
@@ -186,19 +186,6 @@
       <span>© 2026 stake5bot</span>
     </div>
   </footer>
-  <div class="toast" role="status" aria-live="polite" data-toast>Посилання на завантаження буде додано пізніше.</div>
   <script src="./site-theme.js?v=3"></script>
-  <script>
-    var toastTimer;
-    document.querySelectorAll("[data-download-button]").forEach(function (button) {
-      button.addEventListener("click", function () {
-        var toast = document.querySelector("[data-toast]");
-        if (!toast) return;
-        clearTimeout(toastTimer);
-        toast.classList.add("is-visible");
-        toastTimer = setTimeout(function () { toast.classList.remove("is-visible"); }, 3200);
-      });
-    });
-  </script>
 </body>
 </html>
