@@ -640,6 +640,8 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .footer-inner { min-height: 88px; display: flex; align-items: center; gap: 40px; }
 .footer-inner p { margin: 0 auto; color: rgba(245, 245, 245, 0.4); font-size: 12px; }
 .footer-inner > span { color: rgba(245, 245, 245, 0.34); font-size: 12px; letter-spacing: 0.06em; }
+.footer-policy { color: rgba(245, 245, 245, 0.45); font-size: 12px; transition: color 0.2s ease; }
+.footer-policy:hover { color: var(--text); }
 
 /* Toast */
 .toast {
