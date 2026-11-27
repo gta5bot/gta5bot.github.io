@@ -184,4 +184,52 @@
       if (++tries > 24) clearInterval(timer);
     }, 200);
   });
+
+  /* Inline preview: when the app itself has nothing left to scroll, pass the
+     wheel gesture to the parent page. Otherwise the iframe swallows the wheel
+     and the site gets stuck while the cursor is over the demo. */
+  function nearestScroller(node) {
+    while (node && node.nodeType === 1) {
+      var style = getComputedStyle(node);
+      if (/(auto|scroll|overlay)/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 2) {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    var page = document.scrollingElement || document.documentElement;
+    if (page && page.scrollHeight > page.clientHeight + 2) return page;
+    return null;
+  }
+
+  window.addEventListener(
+    "wheel",
+    function (event) {
+      if (event.ctrlKey || event.defaultPrevented) return;
+      if (window.parent === window) return;
+      var parentDoc;
+      try {
+        parentDoc = window.parent.document;
+      } catch (error) {
+        return;
+      }
+      if (!parentDoc || parentDoc.documentElement.classList.contains("demo-lock")) return;
+
+      var scroller = nearestScroller(event.target);
+      if (scroller) {
+        var atTop = scroller.scrollTop <= 0;
+        var atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
+        var goingUp = event.deltaY < 0;
+        if (!(goingUp && atTop) && !(!goingUp && atBottom)) return;
+      }
+
+      event.preventDefault();
+      var step = event.deltaY;
+      if (event.deltaMode === 1) step *= 16;
+      else if (event.deltaMode === 2) step *= window.parent.innerHeight || window.innerHeight;
+      try {
+        window.parent.postMessage({ type: "stake-drop-demo-wheel", deltaY: step }, "*");
+      } catch (error) {}
+    },
+    { passive: false }
+  );
 })();

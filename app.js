@@ -271,7 +271,7 @@ if (location.hash) {
 }
 
 /* Demo: inline iframe on desktop, fullscreen overlay on touch devices */
-const DEMO_URL = "./app-demo/index.html?v=4.13.0-theme3";
+const DEMO_URL = "./app-demo/index.html?v=4.13.0-theme4";
 const DEMO_STAGE_WIDTH = 1280;
 const DEMO_STAGE_HEIGHT = 800;
 const inlineDemo = document.querySelector("[data-demo-inline]");
@@ -354,6 +354,18 @@ window.addEventListener("message", (event) => {
   const data = event.data;
   if (!data || data.type !== "stake-drop-theme-changed" || !THEMES.includes(data.theme)) return;
   if (data.theme !== demoTheme) setDemoTheme(data.theme);
+});
+
+/* Wheel forwarded from the inline demo: the page keeps scrolling under the cursor */
+window.addEventListener("message", (event) => {
+  const data = event.data;
+  if (!data || data.type !== "stake-drop-demo-wheel") return;
+  if (event.source !== inlineDemo?.contentWindow && event.source !== fullDemo?.contentWindow) return;
+  if (document.documentElement.classList.contains("demo-lock")) return;
+  const step = Number(data.deltaY);
+  if (!Number.isFinite(step) || step === 0) return;
+  cancelScrollAnimation();
+  jumpTo(window.scrollY + step);
 });
 
 renderThemeButtons();

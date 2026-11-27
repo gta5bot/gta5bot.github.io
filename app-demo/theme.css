@@ -30,28 +30,34 @@ html.glass-mode .glass-panel {
   -webkit-backdrop-filter: blur(26px) saturate(1.5);
 }
 
-/* "Скло PRO" option injected into the app's theme switcher */
+/* "Скло PRO" option injected into the app's theme switcher.
+   The badge mirrors the app's own PRO badge ("Режим стрімера"). */
 .pro-badge-app {
   flex: none;
-  padding: 1px 5px;
-  border-radius: 999px;
-  background: rgba(255, 199, 107, 0.16);
-  box-shadow: inset 0 0 0 1px rgba(255, 199, 107, 0.38);
-  color: #ffd08a;
-  font-size: 8.5px;
-  font-weight: 800;
+  padding: 2px 6px;
+  border: 1px solid color-mix(in oklab, #f1ba4b 40%, transparent);
+  border-radius: 5px;
+  background: color-mix(in oklab, #f1ba4b 10%, transparent);
+  color: #f1ba4b;
+  font-size: 10px;
+  font-weight: 700;
   line-height: 1.5;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.1em;
+}
+@supports not (background: color-mix(in oklab, red 10%, transparent)) {
+  .pro-badge-app {
+    border-color: rgba(241, 186, 75, 0.4);
+    background: rgba(241, 186, 75, 0.1);
+  }
 }
 [data-theme-glass][aria-pressed="true"] .pro-badge-app {
   background: rgba(12, 10, 16, 0.55);
-  box-shadow: none;
   color: #ffd9a6;
 }
 
 html.light .pro-badge-app {
-  background: rgba(150, 108, 16, 0.14);
-  box-shadow: inset 0 0 0 1px rgba(150, 108, 16, 0.35);
+  border-color: rgba(150, 108, 16, 0.35);
+  background: rgba(150, 108, 16, 0.12);
   color: #8a6412;
 }
 
