@@ -384,7 +384,9 @@ function openDemo() {
   demoOverlay.classList.add("is-open");
   document.documentElement.classList.add("demo-lock");
   fitDemoStage();
-  demoCloseButtons[0]?.focus({ preventScroll: true });
+  if (!window.matchMedia("(pointer: coarse)").matches) {
+    demoCloseButtons[0]?.focus({ preventScroll: true });
+  }
 
   if (history.state?.demo !== true) {
     history.pushState({ demo: true }, "");
