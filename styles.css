@@ -766,8 +766,20 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .feature-card:focus-visible p,
 .feature-card:focus-within p { opacity: 1; }
 @media (hover: none) {
-  .feature-reveal { max-height: none; opacity: 1; visibility: visible; box-shadow: none; }
-  .feature-card p { opacity: 1; }
+  .feature-card { overflow: hidden; }
+  .feature-card.is-open { border-bottom-color: var(--line-strong); border-radius: 14px; }
+  .feature-reveal {
+    position: static;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .feature-card p { margin-top: 12px; opacity: 1; }
 }
 
 /* Final CTA */

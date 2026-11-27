@@ -39,7 +39,7 @@ function syncHeader(y) {
 
   header?.classList.toggle("has-scrolled", y > 90);
 
-  if (y < 90 || forceVisible) {
+  if (y < 90 || forceVisible || mobileHeaderQuery.matches) {
     scrollIntent = 0;
     header?.classList.remove("is-hidden");
   } else if (delta !== 0) {
@@ -326,6 +326,7 @@ const fullDemo = document.querySelector("[data-demo-full]");
 const demoOpenButton = document.querySelector("[data-demo-open]");
 const demoCloseButtons = document.querySelectorAll("[data-demo-close]");
 const desktopQuery = window.matchMedia("(min-width: 861px)");
+const mobileHeaderQuery = window.matchMedia("(max-width: 860px)");
 let lastFocused = null;
 let closeTimer;
 
