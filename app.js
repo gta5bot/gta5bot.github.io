@@ -113,9 +113,34 @@ function measureFeatureReveals() {
     if (!reveal || !text) return;
     const height = Math.ceil(text.getBoundingClientRect().height + parseFloat(getComputedStyle(text).marginTop));
     reveal.style.setProperty("--reveal-height", `${height}px`);
+
+    if (!card.dataset.revealBound) {
+      card.dataset.revealBound = "1";
+      card.addEventListener("pointerenter", () => card.classList.add("is-open"));
+      card.addEventListener("pointerleave", () => card.classList.remove("is-open"));
+      card.addEventListener("focusin", () => card.classList.add("is-open"));
+      card.addEventListener("focusout", () => card.classList.remove("is-open"));
+      /* Mouse focus on a card inside the sliding track can shift the page. */
+      card.addEventListener("mousedown", (event) => event.preventDefault());
+    }
   });
 }
 measureFeatureReveals();
+
+/* Keep a card open only while the pointer (or keyboard focus) is really on it */
+let cardHoverFrame = 0;
+document.addEventListener("pointermove", () => {
+  if (cardHoverFrame) return;
+  cardHoverFrame = requestAnimationFrame(() => {
+    cardHoverFrame = 0;
+    document.querySelectorAll(".feature-card.is-open").forEach((card) => {
+      if (!card.matches(":hover") && !card.contains(document.activeElement)) card.classList.remove("is-open");
+    });
+  });
+});
+window.addEventListener("blur", () => {
+  document.querySelectorAll(".feature-card.is-open").forEach((card) => card.classList.remove("is-open"));
+});
 
 const rootEl = document.documentElement;
 let scrollAnim = 0;

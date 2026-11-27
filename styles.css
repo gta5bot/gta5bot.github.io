@@ -647,6 +647,9 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .features-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 56px; margin-bottom: 44px; }
 .features-head .section-lead { margin: 0 0 6px; max-width: 380px; text-align: right; font-size: 16px; }
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: 20px; }
+.journey,
+.feature-grid,
+.feature-card { overflow-anchor: none; }
 .feature-card {
   position: relative;
   overflow: hidden;
@@ -672,13 +675,13 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   transform-origin: left;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.feature-card:hover,
+.feature-card.is-open,
 .feature-card:focus-visible,
 .feature-card:focus-within {
   border-color: var(--line-strong);
   box-shadow: 0 18px 40px -22px rgba(255, 100, 159, 0.5);
 }
-.feature-card:hover::before,
+.feature-card.is-open::before,
 .feature-card:focus-visible::before,
 .feature-card:focus-within::before { transform: scaleX(1); }
 .feature-card--accent { border-color: rgba(255, 100, 159, 0.24); background: var(--card-accent-bg); }
@@ -697,7 +700,7 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   overflow: hidden;
   transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.feature-card:hover .feature-reveal,
+.feature-card.is-open .feature-reveal,
 .feature-card:focus-visible .feature-reveal,
 .feature-card:focus-within .feature-reveal {
   max-height: var(--reveal-height, 80px);
@@ -710,7 +713,7 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   opacity: 0;
   transition: opacity 0.35s ease 0.08s;
 }
-.feature-card:hover p,
+.feature-card.is-open p,
 .feature-card:focus-visible p,
 .feature-card:focus-within p { opacity: 1; }
 @media (hover: none) {
@@ -992,9 +995,11 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .site-header { animation: none; }
-  .button, .feature-card, .feature-card::before, .feature-reveal, .feature-card p,
+  .button, .feature-card, .feature-card::before,
   .theme-toggle, .theme-toggle__thumb, .theme-toggle__icon, .theme-toggle__icon svg,
   .toast, .button-arrow, .site-nav a, .demo-overlay { transition: none; }
+  .feature-reveal { transition: max-height 0.18s linear; }
+  .feature-card p { transition: opacity 0.18s linear; }
   .button--primary::before, .demo-open__play::after { animation: none; }
 }
 
