@@ -170,6 +170,10 @@ function animateScrollTo(targetY, duration = 620) {
   step(start);
 }
 
+function journeyY(index) {
+  return journeyTop + (index / (panels.length - 1)) * journeyRange;
+}
+
 function snapJourney(y, direction) {
   if (!journeyMedia.matches || !journey) return;
   const now = performance.now();
@@ -183,12 +187,21 @@ function snapJourney(y, direction) {
   const progress = position - index;
 
   let target;
-  if (direction > 0) target = progress >= 0.7 ? index + 1 : index;
-  else if (direction < 0) target = progress <= 0.3 ? index : index + 1;
-  else target = Math.round(position);
+  if (direction > 0) {
+    if (progress >= 0.7) target = index + 1;
+    else if (progress < 0.05) target = index;
+    else return;
+  } else if (direction < 0) {
+    if (progress <= 0.3) target = index;
+    else if (progress > 0.95) target = index + 1;
+    else return;
+  } else {
+    target = Math.round(position);
+  }
   if (target < 0 || target > segments) return;
+  if (Math.abs(journeyY(target) - y) < 2) return;
 
-  animateScrollTo(journeyTop + (target / segments) * journeyRange, 640);
+  animateScrollTo(journeyY(target), 640);
 }
 
 function scrollToPanel(id, smooth = true) {
@@ -258,7 +271,7 @@ if (location.hash) {
 }
 
 /* Demo: inline iframe on desktop, fullscreen overlay on touch devices */
-const DEMO_URL = "./app-demo/index.html?v=4.13.0-theme2";
+const DEMO_URL = "./app-demo/index.html?v=4.13.0-theme3";
 const DEMO_STAGE_WIDTH = 1280;
 const DEMO_STAGE_HEIGHT = 800;
 const inlineDemo = document.querySelector("[data-demo-inline]");
@@ -334,6 +347,13 @@ window.addEventListener("storage", (event) => {
   if (event.key === THEME_KEY && THEMES.includes(event.newValue)) {
     setDemoTheme(event.newValue, { persist: false });
   }
+});
+
+/* Demo -> site: keep the switches in sync when the theme is changed inside the app */
+window.addEventListener("message", (event) => {
+  const data = event.data;
+  if (!data || data.type !== "stake-drop-theme-changed" || !THEMES.includes(data.theme)) return;
+  if (data.theme !== demoTheme) setDemoTheme(data.theme);
 });
 
 renderThemeButtons();

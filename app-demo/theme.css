@@ -29,3 +29,34 @@ html.glass-mode .glass-panel {
   backdrop-filter: blur(26px) saturate(1.5);
   -webkit-backdrop-filter: blur(26px) saturate(1.5);
 }
+
+/* "Скло PRO" option injected into the app's theme switcher */
+.pro-badge-app {
+  flex: none;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: rgba(255, 199, 107, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 199, 107, 0.38);
+  color: #ffd08a;
+  font-size: 8.5px;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 0.07em;
+}
+[data-theme-glass][aria-pressed="true"] .pro-badge-app {
+  background: rgba(12, 10, 16, 0.55);
+  box-shadow: none;
+  color: #ffd9a6;
+}
+
+html.light .pro-badge-app {
+  background: rgba(150, 108, 16, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(150, 108, 16, 0.35);
+  color: #8a6412;
+}
+
+html.glass-mode [data-theme-seg] > button[aria-pressed="true"]:not([data-theme-glass]) {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--fg-muted);
+}

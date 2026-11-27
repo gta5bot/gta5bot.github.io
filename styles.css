@@ -17,7 +17,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 104px; }
+html { scroll-behavior: smooth; scroll-padding-top: 104px; background: var(--bg); }
 body {
   margin: 0;
   background: var(--bg);
@@ -46,10 +46,13 @@ body::before {
 
 /* Header — floating pill, Rockstar-style */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 100;
   padding: 10px 0 0;
+  background: transparent;
   pointer-events: none;
   animation: header-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s backwards;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -68,9 +71,13 @@ body::before {
   padding: 0 6px 0 20px;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: transparent;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
   pointer-events: auto;
 }
+.header-bar::before, .header-bar::after { content: none; }
 .brand, .site-nav { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.55); }
 .brand { justify-self: start; }
 .site-nav { justify-self: center; }
@@ -153,7 +160,7 @@ body::before {
   align-items: center;
   justify-content: center;
   min-height: min(780px, 92vh);
-  padding: 96px 0 88px;
+  padding: 128px 0 88px;
 }
 .hero-grid {
   position: absolute;
@@ -765,7 +772,7 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   .site-nav a:hover { background: rgba(255, 255, 255, 0.06); }
   .menu-button { display: block; margin-left: auto; }
 
-  .hero { min-height: 0; padding: 56px 0 64px; }
+  .hero { min-height: 0; padding: 92px 0 64px; }
   .hero-icon { width: 80px; height: 80px; margin-bottom: 24px; border-radius: 22px; }
   .hero-icon img { width: 78px; height: 78px; padding: 10px; border-radius: 21px; }
   .hero h1 { font-size: clamp(44px, 12vw, 64px); }
