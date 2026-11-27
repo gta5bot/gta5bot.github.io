@@ -117,19 +117,7 @@ body::before {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.05);
   cursor: pointer;
-  opacity: 0;
-  transform: translateX(8px) scale(0.94);
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-.header-actions:hover .theme-toggle,
-.header-actions:focus-within .theme-toggle {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-@media (hover: none) {
-  .header-actions .theme-toggle { opacity: 1; transform: none; pointer-events: auto; }
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .theme-toggle:hover { border-color: var(--peach); box-shadow: 0 0 0 4px rgba(255, 161, 130, 0.1); }
 .theme-toggle__track {
@@ -191,7 +179,7 @@ html.light .theme-toggle__icon--sun svg { transform: rotate(90deg); }
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.01em;
-  box-shadow: 0 10px 26px -10px rgba(255, 79, 150, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 20px -14px rgba(255, 79, 150, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   opacity: 0;
   transform: translateY(-10px) scale(0.96);
   pointer-events: none;
@@ -373,8 +361,7 @@ html.light .theme-toggle__icon--sun svg { transform: rotate(90deg); }
   background-position: 155% 0, 0 0;
   background-repeat: no-repeat;
   box-shadow:
-    0 20px 50px -16px rgba(255, 47, 125, 0.95),
-    0 10px 26px -12px rgba(255, 130, 100, 0.85),
+    0 12px 30px -18px rgba(255, 47, 125, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.32),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
@@ -386,8 +373,14 @@ html.light .theme-toggle__icon--sun svg { transform: rotate(90deg); }
   border-radius: inherit;
   background: linear-gradient(100deg, #ff2f7d, #ff6a5f, #ffa282);
   filter: blur(18px);
-  opacity: 0.6;
-  animation: cta-pulse 4s ease-in-out infinite;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.button--primary:hover::before {
+  opacity: 0.55;
+  transform: scale(1);
+  animation: cta-pulse 3.2s ease-in-out infinite;
 }
 .button--primary > span { position: relative; }
 .button--primary:hover {
@@ -653,7 +646,7 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
 .features-section { border-top: 1px solid var(--line); }
 .features-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 56px; margin-bottom: 44px; }
 .features-head .section-lead { margin: 0 0 6px; max-width: 380px; text-align: right; font-size: 16px; }
-.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: 20px; }
 .feature-card {
   position: relative;
   overflow: hidden;
@@ -703,29 +696,31 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
   letter-spacing: -0.025em;
 }
 .feature-reveal {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-6px);
+  transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .feature-card:hover .feature-reveal,
 .feature-card:focus-visible .feature-reveal,
-.feature-card:focus-within .feature-reveal { grid-template-rows: 1fr; }
-.feature-reveal__inner { overflow: hidden; }
+.feature-card:focus-within .feature-reveal {
+  max-height: 90px;
+  transform: none;
+}
 .feature-card p {
   margin: 12px 0 0;
   color: var(--body-text);
   font-size: 14px;
   line-height: 1.65;
   opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.3s ease 0.12s, transform 0.45s ease 0.05s;
+  transition: opacity 0.35s ease 0.08s;
 }
 .feature-card:hover p,
 .feature-card:focus-visible p,
-.feature-card:focus-within p { opacity: 1; transform: none; }
+.feature-card:focus-within p { opacity: 1; }
 @media (hover: none) {
-  .feature-reveal { grid-template-rows: 1fr; }
-  .feature-card p { opacity: 1; transform: none; }
+  .feature-reveal { max-height: none; transform: none; }
+  .feature-card p { opacity: 1; }
 }
 
 /* Final CTA */
@@ -845,7 +840,9 @@ html.demo-lock body { overflow: hidden; overscroll-behavior: none; }
     display: flex;
     gap: 8px;
     transform: translateX(-50%);
+    transition: opacity 0.35s ease;
   }
+  .journey.is-end .journey__dots { opacity: 0; pointer-events: none; }
   .journey__dots span {
     width: 7px;
     height: 7px;

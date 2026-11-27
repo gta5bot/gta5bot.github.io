@@ -85,6 +85,7 @@ function setActivePanel(index) {
     else link.removeAttribute("aria-current");
   });
   journeyDots.forEach((dot, i) => dot.classList.toggle("is-active", visible && i === index));
+
 }
 
 function renderJourney() {
@@ -97,6 +98,7 @@ function renderJourney() {
   const segments = panels.length - 1;
   const raw = (window.scrollY - journeyTop) / journeyRange;
   const clamped = Math.min(Math.max(raw, 0), 1);
+  journey?.classList.toggle("is-end", clamped >= 0.99);
   const position = clamped * segments;
   journeyTrack.style.transform = `translate3d(${(-position * window.innerWidth).toFixed(2)}px, 0, 0)`;
   const active = raw > -0.02 && raw < 1.02 ? Math.round(position) : -1;
